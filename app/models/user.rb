@@ -1,15 +1,15 @@
 class User < ApplicationRecord
-    belongs_to :course
-    belongs_to :department
+    belongs_to :course, optional: true
+    belongs_to :department, optional: true
 
-    validates :kind, inclusion: { in: 0..3 }
-    validates :coordinator_type, inclusion: { in: 0..1 }, if: :is_coordinator?
-    validates :name, :nacionality, :state, :rg, :cpf, :email, 
-    :password_digest, :birth_date, :address_number, :street, :district,
-    :cep, :kind, presence: true
+    # validates :kind, inclusion: { in: 0..3 }
+    # validates :coordinator_type, inclusion: { in: 0..1 }, if: :is_coordinator?
+    # validates :name, :nacionality, :state, :rg, :cpf, :email, 
+    # :password_digest, :birth_date, :address_number, :street, :district,
+    # :cep, :kind, presence: true
     validates :course_id, :registration_number, presence: true, if: :is_student?
     validates :department_id, :registration_number, presence: true, if: :is_professor?
-    validates :coordinator_type, presence: true, if: :is_coordinator?
+    validates :coordinator_type, :registration_number, presence: true, if: :is_coordinator?
     validates :cpf, :email, uniqueness: true
     validates :registration_number, uniqueness: true, if: :has_reg_number?
 
@@ -34,12 +34,11 @@ class User < ApplicationRecord
     end
 
     def has_reg_number?
-        is_student? or is_professor?
+        is_student? or is_professor? or is_coordinator?
     end
 
     def is_coordinator?
         self.kind == 2
     end
-
 
 end
