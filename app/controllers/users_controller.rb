@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :verify_authenticated, only: [:show, :create, :update]
+
   def index
     @users = User.all
     render json: @users
@@ -12,8 +14,11 @@ class UsersController < ApplicationController
   def create
     user_kind = params.require(:user).permit(:kind)[:kind]
 
-    user_params = filter_params(user_kind, params)
-    @user = User.new(user_params)
+    check_user_permission(user_kind)
+
+    user_params = filter_params(user_kind)
+    @user = current_user.users.build(user_params)
+    
     if @user.save
       render json: @user, status: :created
     else
@@ -24,8 +29,11 @@ class UsersController < ApplicationController
   def update
     user_kind = params.require(:user).permit(:kind)[:kind]
 
+    check_user_permission(user_kind)
+
     user_params = filter_params(user_kind)
-    @user = User.find(params[:id])
+    
+    @user = current_user.users.build(user_params)
     if @user.save
       render json: @user, status: :ok
     else
@@ -34,6 +42,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    user_kind = params.require(:user).permit(:kind)[:kind]
+
+    check_user_permission(user_kind)
     @user = User.find(params[:id])
     @user.destroy
   end
@@ -53,15 +64,25 @@ class UsersController < ApplicationController
         :state, :rg, :cpf, :email, :password_digest, :birth_date, :street, :district, 
         :address_number, :address_complement, :cep, :phone, :mobile, :registration_number,
         :department_id, :kind)
-    elsif user_kind == 2
+    elsif user_kind == ( 2 || 3 )
         params.require(:user).permit(:name, :nacionality, 
         :state, :rg, :cpf, :email, :password_digest, :birth_date, :street, :district, 
         :address_number, :address_complement, :cep, :phone, :mobile, :registration_number,
-        :coordinator_type, :kind)
-    elsif user_kind == 3
+        :kind)
+    elsif user_kind == 4
         params.require(:user).permit(:name, :nacionality, 
         :state, :rg, :cpf, :email, :password_digest, :birth_date, :street, :district, 
         :address_number, :address_complement, :cep, :phone, :mobile, :kind)
+    end
+  end
+
+  def check_user_permission(user_kind)
+    if user_kind == 0 
+      verify_course_coord_authenticated
+    elsif user_kind == 1
+      verify_dept_coord_authenticated
+    elsif user_kind == (2 || 3)
+      verify_director_authenticated
     end
   end
 
