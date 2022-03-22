@@ -10,8 +10,8 @@ class User < ApplicationRecord
     validates :course_id, :registration_number, presence: true, if: :is_student?
     validates :department_id, :registration_number, presence: true, if: :is_professor?
     validates :coordinator_type, :registration_number, presence: true, if: :is_coordinator?
-    validates :cpf, :email, uniqueness: true
-    validates :registration_number, uniqueness: true, if: :has_reg_number?
+    # validates :cpf, :email, uniqueness: true
+    # validates :registration_number, uniqueness: true, if: :has_reg_number?
 
     enum kind: {
         "student": 0,
@@ -26,11 +26,11 @@ class User < ApplicationRecord
     }
 
     def is_student?
-        self.kind == 0
+        self.kind == "student"
     end
 
     def is_professor?
-        self.kind == 1
+        self.kind == "professor"
     end
 
     def has_reg_number?
@@ -38,7 +38,7 @@ class User < ApplicationRecord
     end
 
     def is_coordinator?
-        self.kind == 2
+        self.kind == "coordinator"
     end
 
 end

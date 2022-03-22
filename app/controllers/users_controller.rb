@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   def update
     user_kind = params.require(:user).permit(:kind)[:kind]
 
-    user_params = filter_params(user_kind, params)
+    user_params = filter_params(user_kind)
     @user = User.find(params[:id])
     if @user.save
       render json: @user, status: :ok
@@ -42,26 +42,26 @@ class UsersController < ApplicationController
 
   #helper functions
 
-  def filter_params(user_kind, user_params)
+  def filter_params(user_kind)
     if user_kind == 0
-        user_params.require(:user).permit(:name, :nacionality, 
+        params.require(:user).permit(:name, :nacionality, 
         :state, :rg, :cpf, :email, :password_digest, :birth_date, :street, :district, 
         :address_number, :address_complement, :cep, :phone, :mobile, :registration_number,
-        :course_id)
+        :course_id, :kind)
     elsif user_kind == 1
-        user_params.require(:user).permit(:name, :nacionality, 
+        params.require(:user).permit(:name, :nacionality, 
         :state, :rg, :cpf, :email, :password_digest, :birth_date, :street, :district, 
         :address_number, :address_complement, :cep, :phone, :mobile, :registration_number,
-        :department_id)
+        :department_id, :kind)
     elsif user_kind == 2
-        user_params.require(:user).permit(:name, :nacionality, 
+        params.require(:user).permit(:name, :nacionality, 
         :state, :rg, :cpf, :email, :password_digest, :birth_date, :street, :district, 
         :address_number, :address_complement, :cep, :phone, :mobile, :registration_number,
-        :coordinator_type)
+        :coordinator_type, :kind)
     elsif user_kind == 3
-        user_params.require(:user).permit(:name, :nacionality, 
+        params.require(:user).permit(:name, :nacionality, 
         :state, :rg, :cpf, :email, :password_digest, :birth_date, :street, :district, 
-        :address_number, :address_complement, :cep, :phone, :mobile)
+        :address_number, :address_complement, :cep, :phone, :mobile, :kind)
     end
   end
 
