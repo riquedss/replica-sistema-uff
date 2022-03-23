@@ -15,7 +15,7 @@ class ProfessorsController < ApplicationController
   def create
     user_params = params.require(:user).permit(:name, :nacionality, 
     :state, :rg, :cpf, :email, :password_digest, :birth_date, :street, :district, 
-    :address_number, :address_complement, :cep, :phone, :mobile, :registration_number)
+    :address_number, :address_complement, :cep, :phone, :mobile, :registration_number, :department_id)
 
     user_params[:kind] = professor_kind
 
