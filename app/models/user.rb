@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
     has_secure_password
 
-    # validates :kind, inclusion: { in: 0..4 }
+    # validates :kind, inclusion: { in: 0..5 }
     # validates :name, :nacionality, :state, :rg, :cpf, :email, 
     # :password_digest, :birth_date, :address_number, :street, :district,
     # :cep, :kind, presence: true
@@ -19,7 +19,8 @@ class User < ApplicationRecord
         "professor": 1, 
         "department_coordinator": 2,
         "course_coordinator": 3,
-        "director": 4
+        "director": 4,
+        "admin": 5
     }
 
     def is_student?
