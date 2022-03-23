@@ -40,7 +40,7 @@ class DisciplineController < ApplicationController
 
 
   def discipline_params
-    params.require(:discipline).permit(:name, :hours, :knowledge_area, :department_id)
+    params.require(:discipline).permit(:name, :hours, :knowledge_area, :department_id, :lectures_id)
   end
   
 end
