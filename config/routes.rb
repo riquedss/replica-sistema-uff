@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get 'coursecoords/', to: 'course_coordinators#index'
+  get 'coursecoords/:id', to: 'course_coordinators#show'
+  post 'coursecoords/', to: 'course_coordinators#create'
+  patch 'coursecoords/:id', to: 'course_coordinators#update'
+  delete 'coursecoords/:id', to: 'course_coordinators#destroy'
   post 'login/', to: 'auth#login'
   get 'users/', to: 'users#index'
   get 'users/:id', to: 'users#show'

@@ -14,11 +14,9 @@ class UsersController < ApplicationController
   def create
     user_kind = params.require(:user).permit(:kind)[:kind]
 
-    check_user_permission(user_kind)
-
     user_params = filter_params(user_kind)
-    @user = current_user.users.build(user_params)
-    
+    @user = User.new(user_params)
+
     if @user.save
       render json: @user, status: :created
     else
@@ -28,8 +26,6 @@ class UsersController < ApplicationController
 
   def update
     user_kind = params.require(:user).permit(:kind)[:kind]
-
-    check_user_permission(user_kind)
 
     user_params = filter_params(user_kind)
     
