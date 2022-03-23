@@ -72,14 +72,4 @@ class UsersController < ApplicationController
     end
   end
 
-  def check_user_permission(user_kind)
-    if user_kind == 0 
-      verify_course_coord_authenticated
-    elsif user_kind == 1
-      verify_dept_coord_authenticated
-    elsif user_kind == (2 || 3)
-      verify_director_authenticated
-    end
-  end
-
 end
