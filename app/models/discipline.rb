@@ -3,7 +3,7 @@ class Discipline < ApplicationRecord
 
     has_many :lectures, dependent: :destroy
     has_many :college_classes, dependent: :destroy 
-    has_many :users, through: :lectures#Caso uma matéria seja deletada, todas as suas turmas também serão
+    has_many :teachers, through: :college_classes #Caso uma matéria seja deletada, todas as suas turmas também serão
     
     #Pre-requisitos da matéria
     has_many :requisits, class_name: "Dependency", foreign_key: :target_id, dependent: :destroy
