@@ -1,22 +1,29 @@
 class Department < ApplicationRecord
-    belongs_to :department_coordinator, optional: true
+    belongs_to :user, optional: true
     has_many :users
     has_many :disciplines, dependent: :destroy
     has_many :college_classes, dependent: :destroy
     
-    validates :name, :knowledge_area, :campus, presence: true, format: { with: /\A[a-zA-Z]+\z/, message: "only allows letters" }
-    validate :user_is_department_coordinator
+    validates :name, :knowledge_area, :campus, :code, presence: true
+    validates :name, :knowledge_area, :campus, format: { with: /\A[a-zA-Z ]+\z/, message: "only allows letters" }
+    validates :name, :campus, length: { maximum: 30 }
+    validates :knowledge_area, length: { maximum: 15 }
+    validates :code,  uniqueness: true
+    validate :user_is_department_coordinator?
 
     def coordinator
         self.user
     end
 
-    def user_is_department_coordinator
-        user = self.user.role
-        if user != :department_coordinator and user != nil
-            errors.add(:department_coordinator, "User is not department coordinator")
+    def user_is_department_coordinator?
+        user = self.user
+        if user.nil?
+            return true
         end
-    
+
+        if user.kind != "department_coordinator"
+            errors.add(:user, "User is not department coordinator")
+        end
     end
 
     def self.generate_code
