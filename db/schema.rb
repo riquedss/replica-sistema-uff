@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_21_235536) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_23_200759) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_235536) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "dependencies", force: :cascade do |t|
+    t.integer "requirement_id"
+    t.integer "target_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "disciplines", force: :cascade do |t|
     t.string "name"
     t.integer "hours"
@@ -66,7 +73,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_235536) do
     t.datetime "updated_at", null: false
     t.bigint "department_id", null: false
     t.bigint "lectures_id"
+    t.bigint "dependency_id"
     t.index ["department_id"], name: "index_disciplines_on_department_id"
+    t.index ["dependency_id"], name: "index_disciplines_on_dependency_id"
     t.index ["lectures_id"], name: "index_disciplines_on_lectures_id"
   end
 
@@ -109,6 +118,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_235536) do
   add_foreign_key "college_classes", "disciplines"
   add_foreign_key "college_classes", "users"
   add_foreign_key "disciplines", "departments"
+  add_foreign_key "disciplines", "dependencies"
   add_foreign_key "disciplines", "lectures", column: "lectures_id"
   add_foreign_key "lectures", "disciplines"
   add_foreign_key "lectures", "users"
