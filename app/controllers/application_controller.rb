@@ -20,7 +20,7 @@ class ApplicationController < ActionController::API
         render json: { message: "Permission denied" }, status: 403 and return unless current_user.course_coordinator?      
     end
 
-    def verify_course_coord_authenticated
+    def verify_admin_authenticated
         render json: { message: "Permission denied" }, status: 403 and return unless current_user.admin?      
     end
 

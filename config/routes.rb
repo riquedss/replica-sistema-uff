@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-  get 'director/show'
-  get 'director/create'
-  get 'director/update'
 
   #LOGIN
 
   post 'login/', to: 'auth#login'
+
+  #DIRECTOR
+
+  get 'director/', to: 'director#index'
+  post 'director/', to: 'director#create'
+  patch 'director/', to: 'director#update'
 
   #STUDENTS
 

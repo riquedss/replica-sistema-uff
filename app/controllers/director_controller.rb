@@ -2,7 +2,7 @@ class DirectorController < ApplicationController
   before_action :verify_authenticated, :verify_admin_authenticated, only: [:create, :update, :destroy]
   before_action :user_params, :is_right_kind, only: [:destroy, :create, :update]
 
-  def show
+  def index
     @director = User.director.all
     render json: @director
   end
