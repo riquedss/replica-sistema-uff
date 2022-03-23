@@ -6,9 +6,9 @@ class Discipline < ApplicationRecord
     has_many :users, through: :lectures#Caso uma matéria seja deletada, todas as suas turmas também serão
     
     #Pre-requisitos da matéria
-    has_many :requisits, class_name: "Dependency", foreign_key: :target_id
+    has_many :requisits, class_name: "Dependency", foreign_key: :target_id, dependent: :destroy
     has_many :requirements, through: :requisits
     #Matérias que possuem esta matéria como pré-requisito
-    has_many :follow_ups, class_name: "Dependency", foreign_key: :requirement_id
+    has_many :follow_ups, class_name: "Dependency", foreign_key: :requirement_id, dependent: :destroy
     has_many :targets, through: :follow_ups
 end

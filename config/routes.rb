@@ -26,5 +26,10 @@ Rails.application.routes.draw do
   get '/lectures/:id', to: 'lectures#show'
   post '/lectures', to: 'lectures#create'
   delete '/lectures/:id', to: 'lectures#destroy'
+
+  get '/dependencies', to: 'dependencies#index'
+  get '/dependencies/:id', to: 'dependencies#show'
+  post '/dependencies', to: 'dependencies#create'
+  delete '/dependencies/:id', to: 'dependencies#destroy'
   
 end
