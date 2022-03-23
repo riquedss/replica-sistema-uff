@@ -1,3 +1,3 @@
 class Department < ApplicationRecord
-    has_many :disciplines
+    has_many :disciplines, dependent: :destroy
 end
