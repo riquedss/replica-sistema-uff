@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   #STUDENTS
 
   get 'students/', to: 'students#index'
-  get 'professors/:id', to: 'students#show'
+  get 'students/:id', to: 'students#show'
   post 'students/', to: 'students#create'
   patch 'students/:id', to: 'students#update'
   delete 'students/:id', to: 'students#destroy'
@@ -62,6 +62,36 @@ Rails.application.routes.draw do
   delete 'users/:id', to: 'users#destroy'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  get '/departments', to: 'departments#index'
+  get '/departments/:id', to: 'departments#show'
+  post '/departments', to: 'departments#create'
+  put '/departments/:id', to: 'departments#update'
+  delete '/departments/:id', to: 'departments#destroy'
+
+  get '/college_classes', to: 'college_classes#index'
+  get '/college_classes/:id', to: 'college_classes#show'
+  post '/college_classes', to: 'college_classes#create'
+  put '/college_classes/:id', to: 'college_classes#update'
+  delete '/college_classes/:id', to: 'college_classes#destroy'
+
+  get '/class_enrollments', to: 'class_enrollments#index'
+  get '/class_enrollments/:id', to: 'class_enrollments#show'
+  post '/class_enrollments', to: 'class_enrollments#create'
+  delete '/class_enrollments/:id', to: 'class_enrollments#destroy'
+
+  get '/lectures', to: 'lectures#index'
+  get '/lectures/:id', to: 'lectures#show'
+  post '/lectures', to: 'lectures#create'
+  delete '/lectures/:id', to: 'lectures#destroy'
+
+  get '/dependencies', to: 'dependencies#index'
+  get '/dependencies/:id', to: 'dependencies#show'
+  post '/dependencies', to: 'dependencies#create'
+  delete '/dependencies/:id', to: 'dependencies#destroy'
+  
+  get '/disciplines', to: 'discipline#index'
+  get '/disciplines/:id', to: 'discipline#show'
+  post '/disciplines', to: 'discipline#create'
+  put '/disciplines/:id', to: 'discipline#update'
+  delete '/disciplines/:id', to: 'discipline#destroy'
 end

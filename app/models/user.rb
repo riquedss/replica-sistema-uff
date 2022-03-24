@@ -1,6 +1,15 @@
 class User < ApplicationRecord
     belongs_to :course, optional: true
     belongs_to :department, optional: true
+    has_many :college_classes
+    has_one :course
+    has_one :department
+    has_many :periods
+    has_many :lectures
+    has_many :class_enrollments
+    has_many :grades
+    has_many :students, class_name: "User", through: :grades
+    has_many :professors, class_name: "User", through: :grades
 
     has_secure_password
 
@@ -38,5 +47,7 @@ class User < ApplicationRecord
     def is_coordinator?
         self.kind == "coordinator"
     end
+
+    
 
 end
