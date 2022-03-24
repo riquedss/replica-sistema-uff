@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_23_215801) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_23_222105) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,15 +80,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_23_215801) do
     t.index ["lectures_id"], name: "index_disciplines_on_lectures_id"
   end
 
-  create_table "lectures", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "discipline_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["discipline_id"], name: "index_lectures_on_discipline_id"
-    t.index ["user_id"], name: "index_lectures_on_user_id"
-  end
-
   create_table "grades", force: :cascade do |t|
     t.bigint "professor_id"
     t.bigint "student_id"
@@ -100,6 +91,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_23_215801) do
     t.index ["college_class_id"], name: "index_grades_on_college_class_id"
     t.index ["professor_id"], name: "index_grades_on_professor_id"
     t.index ["student_id"], name: "index_grades_on_student_id"
+  end
+
+  create_table "lectures", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "discipline_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discipline_id"], name: "index_lectures_on_discipline_id"
+    t.index ["user_id"], name: "index_lectures_on_user_id"
   end
 
   create_table "periods", force: :cascade do |t|
@@ -121,8 +121,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_23_215801) do
     t.date "birth_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "course_id"
+    t.bigint "department_id"
+    t.integer "address_number"
+    t.string "street"
+    t.string "district"
+    t.string "address_complement"
+    t.string "cep"
+    t.string "phone"
+    t.string "mobile"
+    t.integer "registration_number"
+    t.integer "kind"
     t.bigint "class_enrollment_id"
     t.index ["class_enrollment_id"], name: "index_users_on_class_enrollment_id"
+    t.index ["course_id"], name: "index_users_on_course_id"
+    t.index ["department_id"], name: "index_users_on_department_id"
   end
 
   add_foreign_key "class_enrollments", "college_classes"
@@ -134,6 +147,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_23_215801) do
   add_foreign_key "disciplines", "departments"
   add_foreign_key "disciplines", "dependencies"
   add_foreign_key "disciplines", "lectures", column: "lectures_id"
+  add_foreign_key "grades", "college_classes"
+  add_foreign_key "grades", "users", column: "professor_id"
+  add_foreign_key "grades", "users", column: "student_id"
   add_foreign_key "lectures", "disciplines"
   add_foreign_key "lectures", "users"
   add_foreign_key "users", "class_enrollments"

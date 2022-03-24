@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-<<<<<<< config/routes.rb
-
   #LOGIN
 
   post 'login/', to: 'auth#login'
@@ -51,9 +49,6 @@ Rails.application.routes.draw do
   patch 'users/:id', to: 'users#update'
   delete 'users/:id', to: 'users#destroy'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-=======
- 
->>>>>>> config/routes.rb
 
   get '/departments', to: 'departments#index'
   get '/departments/:id', to: 'departments#show'
