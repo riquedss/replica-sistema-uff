@@ -1,6 +1,7 @@
 class PeriodsController < ApplicationController
-  before_action :set_period, only: [:show ,:update, :delete]
-  before_action :verify_authenticated_user_director
+  before_action :verify_authenticated
+  before_action :set_period, only: [:show, :update, :delete]
+  before_action :verify_director_authenticated
 
   def index
     @periods = Period.all
@@ -30,7 +31,7 @@ class PeriodsController < ApplicationController
 
   def delete
     if @period.destroy
-      render json: @period, status: :ok
+      render json: { message: "deleted" }, status: :ok
     else
       errors.add("id not found")
       render json: @period.errors, status: :not_found
