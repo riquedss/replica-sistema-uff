@@ -101,4 +101,9 @@ Rails.application.routes.draw do
   post '/courses/', to: 'courses#create'
   put '/courses/:id', to: 'courses#update'
   delete '/courses/:id', to: 'courses#destroy'
+  #Disponibilidade de turma
+  get '/availabilities', to: 'availabilities#index'
+  get '/availabilities/:id', to: 'availabilities#show'
+  post '/availabilities', to: 'availabilities#create'
+  delete '/availabilities/:id', to: 'availabilities#destroy'
 end
