@@ -2,8 +2,8 @@ class User < ApplicationRecord
     belongs_to :course, optional: true
     belongs_to :department, optional: true
     has_many :college_classes
-    has_one :course
-    has_one :department
+    has_one :coordinated_course, class_name: 'Course', foreign_key: 'course_id'
+    has_one :coordinated_department, class_name: 'Department', foreign_key: 'department_id'
     has_many :periods
     has_many :lectures
     has_many :class_enrollments

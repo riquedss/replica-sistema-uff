@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_24_145324) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_24_184849) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "availabilities", force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.bigint "college_class_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["college_class_id"], name: "index_availabilities_on_college_class_id"
+    t.index ["course_id"], name: "index_availabilities_on_course_id"
+  end
 
   create_table "class_enrollments", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -35,6 +44,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_24_145324) do
     t.bigint "department_id", null: false
     t.bigint "class_enrollment_id"
     t.integer "spots"
+    t.bigint "availability_id"
+    t.index ["availability_id"], name: "index_college_classes_on_availability_id"
     t.index ["class_enrollment_id"], name: "index_college_classes_on_class_enrollment_id"
     t.index ["department_id"], name: "index_college_classes_on_department_id"
     t.index ["discipline_id"], name: "index_college_classes_on_discipline_id"
@@ -48,6 +59,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_24_145324) do
     t.string "campus"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "availability_id"
+    t.bigint "users_id"
+    t.index ["availability_id"], name: "index_courses_on_availability_id"
+    t.index ["user_id"], name: "index_courses_on_user_id"
+    t.index ["users_id"], name: "index_courses_on_users_id"
   end
 
   create_table "departments", force: :cascade do |t|
@@ -140,12 +157,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_24_145324) do
     t.index ["department_id"], name: "index_users_on_department_id"
   end
 
+  add_foreign_key "availabilities", "college_classes"
+  add_foreign_key "availabilities", "courses"
   add_foreign_key "class_enrollments", "college_classes"
   add_foreign_key "class_enrollments", "users"
+  add_foreign_key "college_classes", "availabilities"
   add_foreign_key "college_classes", "class_enrollments"
   add_foreign_key "college_classes", "departments"
   add_foreign_key "college_classes", "disciplines"
   add_foreign_key "college_classes", "users"
+  add_foreign_key "courses", "availabilities"
+  add_foreign_key "courses", "users"
+  add_foreign_key "courses", "users", column: "users_id"
   add_foreign_key "disciplines", "departments"
   add_foreign_key "disciplines", "dependencies"
   add_foreign_key "disciplines", "lectures", column: "lectures_id"
@@ -155,5 +178,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_24_145324) do
   add_foreign_key "lectures", "disciplines"
   add_foreign_key "lectures", "users"
   add_foreign_key "users", "class_enrollments"
+  add_foreign_key "users", "courses"
   add_foreign_key "users", "departments"
 end

@@ -94,4 +94,16 @@ Rails.application.routes.draw do
   post '/disciplines', to: 'discipline#create'
   put '/disciplines/:id', to: 'discipline#update'
   delete '/disciplines/:id', to: 'discipline#destroy'
+
+  #CURSOS
+  get '/courses', to: 'courses#index'
+  get '/courses/:id', to: 'courses#show'
+  post '/courses/', to: 'courses#create'
+  put '/courses/:id', to: 'courses#update'
+  delete '/courses/:id', to: 'courses#destroy'
+  #Disponibilidade de turma
+  get '/availabilities', to: 'availabilities#index'
+  get '/availabilities/:id', to: 'availabilities#show'
+  post '/availabilities', to: 'availabilities#create'
+  delete '/availabilities/:id', to: 'availabilities#destroy'
 end
