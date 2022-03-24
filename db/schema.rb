@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema[7.0].define(version: 2022_03_24_164555) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_24_184849) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,8 +61,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_24_164555) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "availability_id"
+    t.bigint "users_id"
     t.index ["availability_id"], name: "index_courses_on_availability_id"
     t.index ["user_id"], name: "index_courses_on_user_id"
+    t.index ["users_id"], name: "index_courses_on_users_id"
   end
 
   create_table "departments", force: :cascade do |t|
@@ -167,6 +168,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_24_164555) do
   add_foreign_key "college_classes", "users"
   add_foreign_key "courses", "availabilities"
   add_foreign_key "courses", "users"
+  add_foreign_key "courses", "users", column: "users_id"
   add_foreign_key "disciplines", "departments"
   add_foreign_key "disciplines", "dependencies"
   add_foreign_key "disciplines", "lectures", column: "lectures_id"
@@ -176,5 +178,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_24_164555) do
   add_foreign_key "lectures", "disciplines"
   add_foreign_key "lectures", "users"
   add_foreign_key "users", "class_enrollments"
+  add_foreign_key "users", "courses"
   add_foreign_key "users", "departments"
 end
