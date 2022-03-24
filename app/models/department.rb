@@ -9,7 +9,7 @@ class Department < ApplicationRecord
     validates :name, :campus, length: { maximum: 30 }
     validates :knowledge_area, length: { maximum: 15 }
     validates :code,  uniqueness: true
-    validate :user_is_department_coordinator?
+    validate :user_exists?, :user_is_department_coordinator?
 
     def coordinator
         self.user
@@ -22,7 +22,18 @@ class Department < ApplicationRecord
         end
 
         if user.kind != "department_coordinator"
-            errors.add(:user, "User is not department coordinator")
+            errors.add(:message, "User is not department coordinator")
+        end
+    end
+
+    def user_exists?
+        user = self.user_id
+        if user.nil?
+            return true
+        end
+
+        unless User.find(user)
+            errors.add(:message, "User not existing")
         end
     end
 
