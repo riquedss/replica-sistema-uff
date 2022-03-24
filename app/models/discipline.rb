@@ -11,4 +11,8 @@ class Discipline < ApplicationRecord
     #Matérias que possuem esta matéria como pré-requisito
     has_many :follow_ups, class_name: "Dependency", foreign_key: :requirement_id, dependent: :destroy
     has_many :targets, through: :follow_ups
+
+    validates :name, :hours, :knowledge_area, presence: {message: "%{value} must exist."}
+    validates :hours, numericality: {only_integer: true, message: "%{value} must be an integer"}
+    validates :name, uniqueness:{message: "%{value} must be unique"}
 end
