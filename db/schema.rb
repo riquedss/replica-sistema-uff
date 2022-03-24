@@ -55,9 +55,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_23_222105) do
     t.string "knowledge_area"
     t.string "code"
     t.string "campus"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
     t.index ["user_id"], name: "index_departments_on_user_id"
   end
 
@@ -124,7 +124,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_23_222105) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "department_id"
-    t.integer "kind"
     t.bigint "course_id"
     t.integer "address_number"
     t.string "street"
@@ -134,7 +133,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_23_222105) do
     t.string "phone"
     t.string "mobile"
     t.integer "registration_number"
-    t.integer "kind"
     t.bigint "class_enrollment_id"
     t.index ["class_enrollment_id"], name: "index_users_on_class_enrollment_id"
     t.index ["course_id"], name: "index_users_on_course_id"
@@ -156,4 +154,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_23_222105) do
   add_foreign_key "lectures", "disciplines"
   add_foreign_key "lectures", "users"
   add_foreign_key "users", "class_enrollments"
+  add_foreign_key "users", "departments"
 end
