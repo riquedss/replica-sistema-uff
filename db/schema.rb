@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema[7.0].define(version: 2022_03_22_210006) do
-=======
-ActiveRecord::Schema[7.0].define(version: 2022_03_22_190613) do
->>>>>>> b3df790d114387509b94c6fcf047138aff80b915
+ActiveRecord::Schema[7.0].define(version: 2022_03_24_030640) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -65,8 +61,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_22_190613) do
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_periods_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -80,8 +74,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_22_190613) do
     t.date "birth_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "course_id"
     t.bigint "department_id"
+    t.integer "kind"
+    t.bigint "course_id"
     t.integer "address_number"
     t.string "street"
     t.string "district"
@@ -90,7 +85,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_22_190613) do
     t.string "phone"
     t.string "mobile"
     t.integer "registration_number"
-    t.integer "kind"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["department_id"], name: "index_users_on_department_id"
   end
@@ -98,6 +92,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_22_190613) do
   add_foreign_key "college_classes", "departments"
   add_foreign_key "departments", "users"
   add_foreign_key "disciplines", "departments"
-  add_foreign_key "periods", "users"
   add_foreign_key "users", "departments"
 end
