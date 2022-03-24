@@ -6,11 +6,11 @@ class UserSerializer < ActiveModel::Serializer
   has_many :college_classes
   has_one :course
   has_one :department
-  has_many :periods
+  #has_many :periods
   has_many :lectures
   has_many :class_enrollments
-  has_many :grades
-  has_many :students, class_name: "User", through: :grades
-  has_many :professors, class_name: "User", through: :grades
+  #has_many :grades
+  #has_many :students, class_name: "User", through: :grades
+  #has_many :professors, class_name: "User", through: :grades
 
 end
