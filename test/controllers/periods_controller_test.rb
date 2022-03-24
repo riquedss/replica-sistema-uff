@@ -1,28 +1,28 @@
 require "test_helper"
 
-class DepartmentsControllerTest < ActionDispatch::IntegrationTest
+class PeriodsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get departments_index_url
+    get periods_index_url
     assert_response :success
   end
 
   test "should get show" do
-    get departments_show_url
+    get periods_show_url
     assert_response :success
   end
 
   test "should get create" do
-    get departments_create_url
+    get periods_create_url
     assert_response :success
   end
 
   test "should get update" do
-    get departments_update_url
+    get periods_update_url
     assert_response :success
   end
 
   test "should get delete" do
-    get departments_delete_url
+    get periods_delete_url
     assert_response :success
   end
 end

@@ -5,6 +5,7 @@ class CreateDepartments < ActiveRecord::Migration[7.0]
       t.string :knowledge_area
       t.string :code
       t.string :campus
+      t.references :user
 
       t.timestamps
     end

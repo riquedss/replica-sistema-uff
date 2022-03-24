@@ -57,6 +57,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_23_222105) do
     t.string "campus"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_departments_on_user_id"
   end
 
   create_table "dependencies", force: :cascade do |t|
@@ -121,8 +123,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_23_222105) do
     t.date "birth_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "course_id"
     t.bigint "department_id"
+    t.integer "kind"
+    t.bigint "course_id"
     t.integer "address_number"
     t.string "street"
     t.string "district"
