@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Availabilty: MyString
+  course: one
+  college_class: one
+
+two:
+  Availabilty: MyString
+  course: two
+  college_class: two
