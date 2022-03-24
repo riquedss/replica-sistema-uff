@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_22_190613) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_23_222105) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,6 +49,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_22_190613) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "grades", force: :cascade do |t|
+    t.bigint "professor_id"
+    t.bigint "student_id"
+    t.float "primeira_nota"
+    t.float "segunda_nota"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "college_class_id", null: false
+    t.index ["college_class_id"], name: "index_grades_on_college_class_id"
+    t.index ["professor_id"], name: "index_grades_on_professor_id"
+    t.index ["student_id"], name: "index_grades_on_student_id"
+  end
+
   create_table "periods", force: :cascade do |t|
     t.integer "year"
     t.integer "semester"
@@ -83,4 +96,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_22_190613) do
     t.index ["department_id"], name: "index_users_on_department_id"
   end
 
+  add_foreign_key "grades", "college_classes"
+  add_foreign_key "grades", "users", column: "professor_id"
+  add_foreign_key "grades", "users", column: "student_id"
 end
