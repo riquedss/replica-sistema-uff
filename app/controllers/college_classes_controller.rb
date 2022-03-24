@@ -40,6 +40,6 @@ class CollegeClassesController < ApplicationController
 
 
   def college_class_params
-    params.require(:college_class).permit(:name, :code, :calendar, :room, :user_id, :discipline_id, :department_id)
+    params.require(:college_class).permit(:name, :code, :calendar, :room, :user_id, :discipline_id, :department_id, :spots)
   end
 end
