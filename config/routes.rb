@@ -25,7 +25,8 @@ Rails.application.routes.draw do
 
   get '/students/', to: 'students#index'
   get '/students/:id', to: 'students#show'
-  post '/students/:id', to: 'students#update'
+  post '/students/', to: 'students#create'
+  put '/students/:id', to: 'students#update'
   delete '/students/:id', to: 'students#destroy'
 
   #PROFESSORS
