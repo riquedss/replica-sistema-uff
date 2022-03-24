@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_23_222105) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_24_145324) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -134,6 +134,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_23_222105) do
     t.string "mobile"
     t.integer "registration_number"
     t.bigint "class_enrollment_id"
+    t.integer "kind"
     t.index ["class_enrollment_id"], name: "index_users_on_class_enrollment_id"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["department_id"], name: "index_users_on_department_id"
