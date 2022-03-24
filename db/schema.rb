@@ -89,6 +89,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_23_215801) do
     t.index ["user_id"], name: "index_lectures_on_user_id"
   end
 
+  create_table "grades", force: :cascade do |t|
+    t.bigint "professor_id"
+    t.bigint "student_id"
+    t.float "primeira_nota"
+    t.float "segunda_nota"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "college_class_id", null: false
+    t.index ["college_class_id"], name: "index_grades_on_college_class_id"
+    t.index ["professor_id"], name: "index_grades_on_professor_id"
+    t.index ["student_id"], name: "index_grades_on_student_id"
+  end
+
   create_table "periods", force: :cascade do |t|
     t.integer "year"
     t.integer "semester"
